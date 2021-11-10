@@ -1,7 +1,7 @@
 <html>
 <?php
-	include('C:\xampp\htdocs\templates\csc350project\db_connect.php');		//change directory
-	include('C:\xampp\htdocs\templates\csc350project\header.php'); 			//change directory
+	include('db_connect.php');		//change directory
+	include('header.php'); 			//change directory
 	
 	session_destroy() // Destroying All Sessions
 
