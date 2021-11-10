@@ -9,8 +9,8 @@
 .p { color: #cc6600; font-family: 'Source Sans Pro', sans-serif; font-size: 18px; line-height: 32px; margin: 0 0 24px; }
 </style>
 <?php
-	include('C:\xampp\htdocs\templates\csc350project\db_connect.php');
-	include('C:\xampp\htdocs\templates\csc350project\header.php');
+	include('db_connect.php');
+	include('header.php');
 
 
 ?>
