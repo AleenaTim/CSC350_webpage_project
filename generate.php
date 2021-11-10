@@ -1,7 +1,7 @@
 <?php
 
 require_once 'GoogleAuthenticator.php';
-include('C:\xampp\htdocs\templates\csc350project\db_connect.php');
+include('db_connect.php');
 session_start();
 
 $ga = new GoogleAuthenticator();
