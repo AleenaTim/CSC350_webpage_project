@@ -1,6 +1,6 @@
 <?php
-	include('C:\xampp\htdocs\templates\csc350project\header.php');
-	include('C:\xampp\htdocs\templates\csc350project\db_connect.php');		//change directory
+	include('header.php');
+	include('db_connect.php');		//change directory
 
 		
 	$error = "Don't have an account with us?<br>Sign up now!";
