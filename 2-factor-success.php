@@ -1,6 +1,6 @@
 <?php
-	include('C:\xampp\htdocs\templates\csc350project\db_connect.php');
-	include('C:\xampp\htdocs\templates\csc350project\header.php');
+	include('db_connect.php');
+	include('header.php');
 ?>
 
 <html>
