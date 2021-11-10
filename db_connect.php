@@ -1,7 +1,7 @@
 <?php 
 
 	// connect to the database
-	$con = mysqli_connect('dbconnect', 'root', '', 'occss');
+	$con = mysqli_connect('db_connect', 'root', '', 'occss');
 
 	// check connection
 	if(!$con){
