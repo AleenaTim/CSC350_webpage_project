@@ -1,8 +1,8 @@
 <?php
 	ob_start();
 	
-	include('C:\xampp\htdocs\templates\csc350project\db_connect.php');			//change directory
-	include('C:\xampp\htdocs\templates\csc350project\header.php');
+	include('db_connect.php');			//change directory
+	include('header.php');
 	
 	$sql = 'SELECT Item, Qty, Price, Description, ID FROM items ORDER BY ID';
 
