@@ -74,9 +74,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`ID`, `firstName`, `lastName`, `email`, `password`, `Two_Factor`, `user-sec-code`) VALUES
-(22, 'Aleena', 'Tim', 'aleenatim@gmail.com', 'abc123', '1', ''),
-(23, 'Aleena', 'Tim', 'aleena@wcbryanths.org', 'abc123', '0', '');
+--INSERT INTO `users` (`ID`, `firstName`, `lastName`, `email`, `password`, `Two_Factor`, `user-sec-code`) VALUES
+
 
 --
 -- Indexes for dumped tables
