@@ -19,70 +19,89 @@ if(isset($_POST['submit'])){
 	$myPassword = stripslashes($myPassword);
 	$myConfirmPassword = stripslashes($myConfirmPassword);
 	
+	$isEmailinDB = false;
+
 	if(empty($_POST['email'])){
 			$errors['email'] = '*An email is required';
 	} 
-	else{
+	else if($_POST['email'] == true){
 		$email = $_POST['email'];
 		$isTrue = true;
 		if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
 			$errors['email'] = '*Email must be a valid email address';
 		}
 	}
+	$query = "SELECT email FROM users WHERE email = '".$_POST['email']."'";
+	if($_POST['email'] == true){
+		$result = mysqli_query($con, $query);
+		if (mysqli_num_rows($result)) {    
+			$isEmailinDB = true;
+			$errors['email'] = '*Email is already in use';
+		}
+		else
+			$isEmailinDB = false;
+	}
+	//check First Name
 	if(empty($_POST['firstName'])){
 		$errors['firstName'] = '*A first name is required';
 	} 
+	//check Last Name
 	if(empty($_POST['lastName'])){
 		$errors['lastName'] = '*A last name is required';
 	} 
+	//check Password
 	if(empty($_POST['password'])){
 		$errors['password'] = '*A password is required';
 	} 
-
+	//check Confirm Password
 	if(empty($_POST['confirm_password'])){
 		$errors['confirm_password'] = '*Field is blank';
 	}
-		
-		if(($_POST['password'] == $_POST['confirm_password']) && ($isTrue == true) && (!empty($_POST['confirm_password']) && !empty($_POST['password']) && !empty($_POST['firstName']) && !empty($_POST['lastName']))){
-				$firstName = $_POST['firstName'];
-				$lastName = $_POST['lastName'];
-				$password = $_POST['password'];
-				$confirm_password = $_POST['confirm_password'];
-				$insert = "insert into users (email, firstName, lastName, password, Two_Factor) values ('$email','$firstName','$lastName','$password', '$Two_Factor')";
-				
-				$r = mysqli_query($con,$insert) or die('Cannot insert: ');
-				if($r){
-					$query = "SELECT ID, email, firstName, lastName, password, Two_Factor FROM users WHERE email = '$myEmail' and password = '$myPassword'";
-					$result = mysqli_query($con, $query);
-					$count = mysqli_num_rows($result);
-					
-					if ($result = $con->query($query)) {    
-						while ($row = $result->fetch_object()) {
-							$ID = $row->ID;
-						}
-						$_SESSION['ID'] = $ID;
-						$result->close();
-					}
-					$_SESSION['ID'] = $ID;
-					$_SESSION['Two_Factor'] = $Two_Factor;
-					$_SESSION['email'] = $_POST['email'];
-					$_SESSION['firstName'] = $_POST['firstName'];
-					$_SESSION['lastName'] = $_POST['lastName'];
-					echo "success.<br>";
-					header('Location: 2-Step-Verification.php');
-				}
-				else {
-					echo "failed.<br>";
-				}
-			}
-			else{
-				
-			}
-	
-	if($_POST['password'] != $_POST['confirm_password']){
+	//check if Password == Confirm Password
+	else if($_POST['password'] != $_POST['confirm_password']){
 		$errors['password'] = '*Passwords do not match';
 		$errors['confirm_password'] = '*Passwords do not match';
 	}
+	else if($_POST['password'] == $_POST['confirm_password']){
+		if(strlen($_POST['password']) <= 5){
+			$errors['password'] = '*Password is too short. Minimum must be 6 characters';
+		}
+		else if(($isEmailinDB == false && $_POST['password'] == $_POST['confirm_password']) && ($isTrue == true) && (!empty($_POST['confirm_password']) && !empty($_POST['password']) && !empty($_POST['firstName']) && !empty($_POST['lastName']))){
+			$firstName = $_POST['firstName'];
+			$lastName = $_POST['lastName'];
+			$password = $_POST['password'];
+			$confirm_password = $_POST['confirm_password'];
+			$insert = "insert into users (email, firstName, lastName, password, Two_Factor) values ('$email','$firstName','$lastName','$password', '$Two_Factor')";
+			
+			$r = mysqli_query($con,$insert) or die('Cannot insert: ');
+			if($r){
+				$query = "SELECT ID, email, firstName, lastName, password, Two_Factor FROM users WHERE email = '$myEmail' and password = '$myPassword'";
+				$result = mysqli_query($con, $query);
+				$count = mysqli_num_rows($result);
+				
+				if ($result = $con->query($query)) {    
+					while ($row = $result->fetch_object()) {
+						$ID = $row->ID;
+					}
+					$_SESSION['ID'] = $ID;
+					$result->close();
+				}
+				$_SESSION['ID'] = $ID;
+				$_SESSION['Two_Factor'] = $Two_Factor;
+				$_SESSION['email'] = $_POST['email'];
+				$_SESSION['firstName'] = $_POST['firstName'];
+				$_SESSION['lastName'] = $_POST['lastName'];
+				echo "success.<br>";
+				header('Location: 2-Step-Verification.php');
+			}
+			else {
+				echo "failed.<br>";
+			}
+		}
+		else{
+			
+		}
+	}	
 }
 ?>
 <html>
